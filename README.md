@@ -1,6 +1,6 @@
 ## echidna-mono.nvim
 
-A monochrome variant of [echidna.nvim](https://github.com/2besita/echidna.nvim) by 2besita.
+A monochrome variant of [echidna.nvim](https://github.com/2besita/echidna.nvim), originally created by 2besita.
 The entire theme is built from just two colors.
 
 ### How to install
