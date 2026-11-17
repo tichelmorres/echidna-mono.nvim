@@ -189,13 +189,32 @@ local function set_groups(colorscheme)
         type(config.overrides) == "function" and config.overrides() or config.overrides or {}
     )
 
+    if config.transparent then
+        for _, parameters in pairs(groups) do
+            if parameters.bg == colorscheme.background then
+                parameters.bg = "NONE"
+            end
+        end
+        vim.opt.fillchars:append({ eob = " " })
+    end
+
     for group, parameters in pairs(groups) do
         vim.api.nvim_set_hl(0, group, parameters)
     end
 end
 
 function theme.setup(values)
-    config = vim.tbl_deep_extend("force", config.defaults, values or {})
+    config.extend(values)
+end
+
+function theme.toggle_transparent()
+    config.transparent = not config.transparent
+    package.loaded["lualine.themes.echidna-mono"] = nil
+    theme.colorscheme()
+    pcall(function()
+        local lualine = require("lualine")
+        lualine.setup(lualine.get_config())
+    end)
 end
 
 function theme.colorscheme()
